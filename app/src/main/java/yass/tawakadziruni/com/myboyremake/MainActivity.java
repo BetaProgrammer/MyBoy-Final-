@@ -69,22 +69,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-    public File MakeANewFile() throws IOException {
-        int d = 1;
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        d += 1;
-        File NewImage = File.createTempFile("Image " + d, ".jpg", storageDir);
-        // Save a file: path for use with ACTION_VIEW intents
-        String CurrentPhotoPath = NewImage.getAbsolutePath();
 
-
-        ArrayAdapter<Bitmap> adapter=new ArrayAdapter<Bitmap>(this,android.R.layout.simple_list_item_1,Imagess);
-        ListView liz =(ListView) findViewById(R.id.Image_ListView);
-        liz.setAdapter(adapter);
-
-
-        return NewImage;
-    }
 public void Take_A_Photo(View v) {
     Intent NewClothingCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
