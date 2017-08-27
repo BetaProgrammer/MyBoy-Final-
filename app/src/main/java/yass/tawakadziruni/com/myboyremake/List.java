@@ -14,5 +14,5 @@ public class List extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_item);
     }
-   ImageView mImageView=(ImageView) findViewById(R.id.Image);
+    ImageView mImageView=(ImageView) findViewById(R.id.Image);
 }
