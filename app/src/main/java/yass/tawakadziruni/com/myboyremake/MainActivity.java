@@ -13,10 +13,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,15 +35,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import static android.R.attr.data;
+import static android.R.attr.thickness;
 
 public class MainActivity extends AppCompatActivity {
-    File ARra;
-
-    //This is an arraylist for the photo URIs
-
-
-
-    int reg = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +45,25 @@ public class MainActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
+        final Button AddPhotoButton = (Button) findViewById(R.id.button);
+
+        AddPhotoButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+                AddPhotoButton.startAnimation(anim1);
+            }
+        });
+
 
     }
-
-    public void PlaySong() {
-        MediaPlayer SongPlayer = MediaPlayer.create(this, R.raw.marr);
-        SongPlayer.start();
-    }
-
-
-
-
 }
+
+
+
+
+
+
 
 
 
