@@ -1,74 +1,96 @@
 package yass.tawakadziruni.com.myboyremake;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
-import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.ArrayList;
 
-import static android.R.attr.data;
-import static android.R.attr.thickness;
+import io.fabric.sdk.android.Fabric;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+    private AdView mAdView;
+    private ProgressBar spinner;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
+
+        MobileAds.initialize(this, "ca-app-pub-7738678049484474/7168229263");
+        mAdView = (AdView) findViewById(R.id.adView);
+        final AdRequest adRequest = new AdRequest.Builder().build();
+
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
+
+        final ArrayList<Photo> Pics = new ArrayList<>();
         final Button AddPhotoButton = (Button) findViewById(R.id.button);
 
+        final PhotoAdapter adapter = new PhotoAdapter(this, Pics);
+        final ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
+
+
+        Pics.add(new Photo(getDrawable(R.drawable.images)));
+        Pics.add(new Photo(getDrawable(R.drawable.wowo)));
+        Pics.add(new Photo(getDrawable(R.drawable.card_view_san_fran)));
+        Pics.add(new Photo(getDrawable(R.drawable.download)));
+        Pics.add(new Photo(getDrawable(R.drawable.images)));
+        Pics.add(new Photo(getDrawable(R.drawable.san2)));
+        Pics.add(new Photo(getDrawable(R.drawable.san)));
+
+        spinner.setVisibility(View.GONE);
         AddPhotoButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+                Animation anim1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
                 AddPhotoButton.startAnimation(anim1);
+                mAdView.loadAd(adRequest);
+
+                while (mAdView.isLoading()) {
+                    spinner.setVisibility(View.VISIBLE);
+                }
+                if (mAdView.isShown()) {
+                    anim1.cancel();
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Add Photo button.");
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Add Photo button..");
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
             }
         });
 
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //// TODO: 2017/08/20 Find a way of retrieving the photo.
 

@@ -2,4 +2,5 @@
 <resources>
     <item name="Image" type="id" />
     <item name="Image_ListView" type="id" />
+    <item name="lsk" type="id" />
 </resources>

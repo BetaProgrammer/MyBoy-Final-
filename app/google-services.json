@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "193319155249",
+    "firebase_url": "https://yass-af4e3.firebaseio.com",
+    "project_id": "yass-af4e3",
+    "storage_bucket": "yass-af4e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193319155249:android:5e1a330cd9f2f4e8",
+        "android_client_info": {
+          "package_name": "yass.tawakadziruni.com.myboyremake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193319155249-n4d8q9j425derbvbach443elns6jstsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "yass.tawakadziruni.com.myboyremake",
+            "certificate_hash": "21484ee40bf3e25f73bf4c3782d8a5978e440021"
+          }
+        },
+        {
+          "client_id": "193319155249-58q7lnuvkt71geicpk3e9en7skbufmer.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAahmkQ2q8XUAOH5jqgXVAeufIGgq61KVw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193319155249-58q7lnuvkt71geicpk3e9en7skbufmer.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
